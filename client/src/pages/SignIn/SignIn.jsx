@@ -66,7 +66,7 @@ const SignIn = () => {
       {/* Tabs for Login / Register */}
       <div className="flex">
         <button
-          className={`w-1/2 py-3 text-center ${
+          className={`w-1/2 py-3 text-center cursor-pointer ${
             mode === "Register"
               ? "border-b-2 border-indigo-500 font-bold text-indigo-600"
               : "text-gray-500"
@@ -76,7 +76,7 @@ const SignIn = () => {
           Register
         </button>
         <button
-          className={`w-1/2 py-3 text-center ${
+          className={`w-1/2 py-3 text-center cursor-pointer ${
             mode === "Login"
               ? "border-b-2 border-indigo-500 font-bold text-indigo-600"
               : "text-gray-500"
