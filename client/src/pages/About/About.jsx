@@ -9,8 +9,8 @@ const About = () => {
         </p>
         <h2 className='text-3xl font-bold my-10'>Why this app exists?</h2>
         <p className="mt-4 text-xl text-black render">Our mission is simple: to foster stronger communities by making event participation effortless. In today’s fast-paced world, staying connected is more important than ever. We aim to provide a space where people can engage with their communities, celebrate traditions, support charitable causes, and build meaningful relationships.
-
         </p>
+        <p className='mt-20 text-xl text-black render'>Here at CommunionHub we're a community of communities. Please if you have any feedbacks or reports, kindly send them at <i>shishankshakher@gmail.com</i><br/>If it is about any event please include the url. <br/>We are always here to help you.</p>
       </section>
     </div>
   )

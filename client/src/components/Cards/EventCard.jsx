@@ -25,7 +25,7 @@ return (
     {/* Date & Location */}
     <div className="flex justify-between text-sm text-gray-700">
       <span className="font-medium">{formattedDate}</span>
-      <span className="font-medium">{location}</span>
+      <span className="font-medium text-right">{location}</span>
     </div>
 
     {/* Event Title */}
