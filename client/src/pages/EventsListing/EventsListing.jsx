@@ -112,7 +112,7 @@ const EventsListing = () => {
 
                 </div>
 
-                <select name="category" id="cat" className={`w-20 h-auto sm:w-30 outline-none cursor-pointer ${categoryColors[category]} border-3 rounded-r-3xl ml-2 px-2 py-1`} value={category} onChange={({target})=>{setCategory(target.value)}}>
+                <select name="category" id="cat" className={`w-20 h-auto sm:w-30 outline-none cursor-pointer ${categoryColors[category].border} border-3 rounded-r-3xl ml-2 px-2 py-1`} value={category} onChange={({target})=>{setCategory(target.value)}}>
                     <option value="All" className='' defaultValue={true}>All</option>
                     <option value="Religious" className=''>Religious</option>
                     <option value="Social" className=''>Social</option>

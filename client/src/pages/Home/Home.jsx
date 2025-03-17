@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar';
 import { AppContext } from '../../AppContext';
@@ -12,6 +12,10 @@ const Home = () => {
     const redirectToEvents = () => {
         navigate('/events');
     }
+    useEffect(()=>{
+        console.log('base_url');
+        console.log(import.meta.env.VITE_BASE_URL);
+    },[])
 
   return (
     <>

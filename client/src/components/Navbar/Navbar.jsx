@@ -8,16 +8,12 @@ import { IoMdPower } from "react-icons/io";
 
 const Navbar = () => {
     
-    const { user, setUser, signedIn, setSignedIn, setIsSigning, isSigning } = useContext(AppContext);
+    const { user, setUser, signedIn, setSignedIn, setIsSigning, isSigning, handleLogout } = useContext(AppContext);
 
     const [ navbarShow, setNavbarShow ] = useState(true);
 
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        localStorage.clear();
-        setSignedIn(false);
-    }
 
     const moveNavbar = () => { 
         setNavbarShow((prev) => !prev ) 

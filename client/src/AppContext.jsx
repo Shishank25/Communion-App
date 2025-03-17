@@ -10,17 +10,6 @@ export const AppProvider = ({ children }) => {
   const [ signedIn, setSignedIn ] = useState(false);
   const [ isSigning, setIsSigning ] = useState(false);
 
-  // const categoryColors = {     
-  //   All: "border-transparent",
-  //   Religious: "border-[#726DA8]",  // Muted Lavender (Elegant)
-  //   Social: "border-[#5D9DDA]",     // Soft Blue (Friendly)
-  //   Charity: "border-[#6D9773]",    // Muted Green (Trustworthy)
-  //   Festival: "border-[#E1A95F]",   // Warm Golden (Celebratory)
-  //   Fest: "border-[#D17B88]",       // Soft Coral Pink (Festive)
-  //   Workshop: "border-[#8D6CAB]",   // Muted Purple (Creative)
-  //   Others: "border-[#908D94]"      // Muted Gray (Neutral)
-  // };
-
   const categoryColors = {
     All: { border: "border-transparent", bg: "bg-transparent" },
     Religious: { border: "border-[#726DA8]", bg: "bg-[#726DA8]" }, // Muted Lavender (Elegant)
@@ -36,10 +25,15 @@ export const AppProvider = ({ children }) => {
           isShown: false,
           type: 'view',
           data: null
-      })
+      });
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setSignedIn(false);
+  }
 
   return (
-    <AppContext.Provider value={{ user, setUser, signedIn, setSignedIn, isSigning, setIsSigning, categoryColors, openModal, setOpenModal }}>
+    <AppContext.Provider value={{ user, setUser, signedIn, setSignedIn, isSigning, setIsSigning, categoryColors, openModal, setOpenModal, handleLogout }}>
       {children}
     </AppContext.Provider>
   );
