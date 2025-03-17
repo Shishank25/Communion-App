@@ -17,7 +17,7 @@ const Home = () => {
     <>
     <div className='flex flex-col mt-12'>
         <div className='flex flex-col lg:flex-row justify-between relative animate-fade-in'>
-            <div className={`mt-30 ml-12 flex flex-col transition-all duration-400 ${isSigning ? 'opacity-0' : 'opacity-100'}`}>
+            <div className={`mt-30 mx-6 flex flex-col transition-all duration-400 ${isSigning ? 'opacity-0' : 'opacity-100'}`}>
                 <h3 className='text-5xl sm:text-7xl font-bold font-montserrat text-center'>Welcome</h3>
                 <h2 className='text-xl text-center font-medium mt-20 mb-4'>Bringing Communities Together</h2>
                 <p className='my-4 text-center sm:w-150 text-lg italic font-inter'>Connect with like-minded people, explore events, and engage with your community in meaningful ways.
