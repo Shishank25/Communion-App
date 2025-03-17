@@ -73,7 +73,7 @@ const Navbar = () => {
                 </div> 
             }
 
-                <div className={`rounded-xl w-full px-24 absolute h-auto flex justify-center lg:justify-end top-15 transition-opacity ease-out duration-700 ${isSigning ? 'z-5 opacity-100' : 'opacity-0 -z-1'}`}>
+                <div className={`rounded-xl w-full lg:px-24 absolute h-auto flex justify-center lg:justify-end top-15 transition-opacity ease-out duration-700 ${isSigning ? 'z-5 opacity-100' : 'opacity-0 -z-1'}`}>
                     <SignIn />
                 </div>
 
