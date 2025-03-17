@@ -11,15 +11,15 @@ export const AppProvider = ({ children }) => {
   const [ isSigning, setIsSigning ] = useState(false);
 
   const categoryColors = {     
-          All: "border-transparent",
-          Religious: "border-indigo-700",  
-          Social: "border-blue-500",       
-          Charity: "border-green-600",     
-          Festival: "border-yellow-500",   
-          Fest: "border-pink-500",        
-          Workshop: "border-purple-600",   
-          Others: "border-gray-500"      
-        };
+    All: "border-transparent",
+    Religious: "border-[#726DA8]",  // Muted Lavender (Elegant)
+    Social: "border-[#5D9DDA]",     // Soft Blue (Friendly)
+    Charity: "border-[#6D9773]",    // Muted Green (Trustworthy)
+    Festival: "border-[#E1A95F]",   // Warm Golden (Celebratory)
+    Fest: "border-[#D17B88]",       // Soft Coral Pink (Festive)
+    Workshop: "border-[#8D6CAB]",   // Muted Purple (Creative)
+    Others: "border-[#908D94]"      // Muted Gray (Neutral)
+  };
 
   const [ openModal, setOpenModal ] = useState({
           isShown: false,

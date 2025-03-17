@@ -1,133 +1,159 @@
-import React, { useState, useContext } from 'react'
-import { MdClose } from 'react-icons/md'
-import axiosInstance from '../../utils/axiosInstance';
-import { AppContext } from '../../AppContext';
+import React, { useState, useContext } from "react";
+import { MdClose } from "react-icons/md";
+import axiosInstance from "../../utils/axiosInstance";
+import { AppContext } from "../../AppContext";
 
+const CreateEvent = ({ event, getEvents }) => {
+  const [title, setTitle] = useState(event?.title || "");
+  const [description, setDescription] = useState(event?.description || "");
+  const [date, setDate] = useState("");
+  const [category, setCategory] = useState(event?.category || "");
+  const [location, setLocation] = useState(event?.location || "");
+  const [error, setError] = useState("");
 
+  const { openModal, setOpenModal } = useContext(AppContext);
 
-const CreateEvent = ({ event, getEvents}) => {
+  const handleEventCreation = async () => {
+    if (!title) return setError("Please give your event a title");
+    if (!description) return setError("Please describe your event");
+    if (!date) return setError("Please set a date and time");
+    if (!category) return setError("Select a category for the event");
 
-    const [ title, setTitle ] = useState(event?.title || '');
-    const [ description, setDescription ] = useState(event?.description || '');
-    const [ date, setDate ] = useState(undefined);
-    const [ category, setCategory ] = useState(event?.category || '');
-    const [ location, setLocation ] = useState(event?.location || '');
-
-    const { openModal, setOpenModal } = useContext(AppContext);
-
-    const [ error, setError ] = useState('');
-
-    const handleEventCreation = async () => {
-
-      if (!title) {setError('Please give your Event a Title'); return}
-      if (!description) {setError('Please give a Description of your Event'); return}
-      if (!date) {setError('Please set a Date and Time for your Event'); return}
-      if (!category) {setError('Kindly set a Category for your Event'); return}
-
-
-      if( openModal.type === 'create' ) {
-
-          try {
-              const response = await axiosInstance.post('/create-event', { title, description, date, category, location });
-              if(!response.data.error) {
-                  setOpenModal({ isShown: false, type: '', data: null})
-              }
-              getEvents();
-          } catch (error) { 
-
-              if (error.response && error.response.data && error.response.data.message ){
-                  console.log(error)
-                setError( error.response.data.message );
-              } else {
-                console.log(error.response);
-                setError( 'An unexpected error has occured' );
-              }
-      
-          }
+    try {
+      if (openModal.type === "create") {
+        const response = await axiosInstance.post("/create-event", {
+          title,
+          description,
+          date,
+          category,
+          location,
+        });
+        if (!response.data.error)
+          setOpenModal({ isShown: false, type: "", data: null });
+      } else if (openModal.type === "edit") {
+        const response = await axiosInstance.put(`/update-event/${event.id}`, {
+          title,
+          description,
+          date,
+          category,
+          location,
+        });
+        if (!response.data.error)
+          setOpenModal({ isShown: false, type: "", data: null });
       }
-
-      else if ( openModal.type === 'edit' ) {
-        console.log(event);
-
-          try {
-            const response = await axiosInstance.put(`/update-event/${event.id}`, { title, description, date, category, location });
-            if(!response.data.error) {
-                setOpenModal({ isShown: false, type: '', data: null})
-                getEvents()
-            }
-        } catch (error) { 
-
-            if (error.response && error.response.data && error.response.data.message ){
-                console.log(error)
-              setError( error.response.data.message );
-            } else {
-              console.log(error.response);
-              setError( 'An unexpected error has occured' );
-            }
-
-        }
-      }
-
+      getEvents();
+    } catch (err) {
+      setError(err.response?.data?.message || "An unexpected error occurred");
     }
+  };
 
-    const deleteEvent = async () => {
-      try{ 
-        const response = await axiosInstance.delete(`/delete-event/${event.id}`);
-        if(!response.data.error) {
-          setOpenModal({ isShown: false, type: '', data: null})
-          getEvents()
-        }
-      } catch (error) {
-        if (error.response && error.response.data && error.response.data.message ){
-          console.log(error)
-          setError( error.response.data.message );
-          } else {
-            console.log(error.response);
-            setError( 'An unexpected error has occured' );
-            }
-    }}
-
+  const deleteEvent = async () => {
+    try {
+      const response = await axiosInstance.delete(`/delete-event/${event.id}`);
+      if (!response.data.error) {
+        setOpenModal({ isShown: false, type: "", data: null });
+        getEvents();
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "An unexpected error occurred");
+    }
+  };
 
   return (
-    <div className='relative h-102 w-70 sm:w-auto sm:max-w-150'>
+    <>
+      {/* Background Overlay with Blur */}
+      <div className="fixed inset-0 bg-opacity-20 backdrop-blur-md z-40"></div>
 
-        <div className='flex flex-col justify-between p-5 h-100'>
+      {/* Modal */}
+      <div className="fixed inset-0 flex justify-center items-center z-50">
+        <div className="relative w-full max-w-lg bg-[#f5e6d7] p-8 rounded-xl shadow-xl border border-[#e0c3a0]">
+          {/* Close Button */}
+          <button
+            className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition"
+            onClick={() =>
+              setOpenModal({ isShown: false, type: "", data: null })
+            }
+          >
+            <MdClose size={24} />
+          </button>
 
-            <div className='flex flex-col h-75'>
+          <h2 className="text-2xl font-semibold text-center text-[#5a4a3c] mb-4">
+            {openModal.type === "edit" ? "Edit Event" : "Create Event"}
+          </h2>
 
-                <input type="text" placeholder='Event Title' value={title} className='text-2xl outline-none' onChange={({ target })=>setTitle(target.value)}/>
-                <textarea name="" id="" placeholder={`Describe the event... \nPlease include Event timings`} value={description} rows={8} className='max-h-75 outline-none mt-4' onChange={({ target })=>setDescription(target.value)}/>
+          {/* Form */}
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Event Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full px-4 py-2 border border-[#d3b28c] rounded-lg bg-[#fff9f3] text-[#5a4a3c] focus:ring-2 focus:ring-[#d3b28c]"
+            />
 
-            </div>
+            <textarea
+              placeholder="Describe the event... (include timing details)"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={4}
+              className="w-full px-4 py-2 border border-[#d3b28c] rounded-lg bg-[#fff9f3] text-[#5a4a3c] focus:ring-2 focus:ring-[#d3b28c]"
+            ></textarea>
 
-            <div className='flex justify-between'>
-              <select name="" id="" className='w-50' value={category} onChange={({ target })=>setCategory(target.value)}>
-                  <option value="Other" className=''>Other</option>
-                  <option value="Religious" className=''>Religious</option>
-                  <option value="Social" className=''>Social</option>
-                  <option value="Charity" className=''>Charity</option>
-                  <option value="Festival" className=''>Festival</option>
-                  <option value="Fest" className=''>Fest</option>
+            <div className="flex gap-4">
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-1/2 px-4 py-2 border border-[#d3b28c] rounded-lg bg-[#fff9f3] text-[#5a4a3c] focus:ring-2 focus:ring-[#d3b28c]"
+              >
+                <option value="">Select Category</option>
+                <option value="Religious">Religious</option>
+                <option value="Social">Social</option>
+                <option value="Charity">Charity</option>
+                <option value="Festival">Festival</option>
+                <option value="Fest">Fest</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Other">Other</option>
               </select>
-              <input type="text" placeholder='Location' value={location} className='text-lg outline-none w-50' onChange={({ target })=>setLocation(target.value)}/>
+              <input
+                type="text"
+                placeholder="Location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                className="w-1/2 px-4 py-2 border border-[#d3b28c] rounded-lg bg-[#fff9f3] text-[#5a4a3c] focus:ring-2 focus:ring-[#d3b28c]"
+              />
             </div>
 
-            <input type="date" placeholder='' value={date} className='text-sm h-30 w-50 sm:h-auto text-wrap my-4' onChange={({ target })=>setDate(target.value)}/>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full px-4 py-2 border border-[#d3b28c] rounded-lg bg-[#fff9f3] text-[#5a4a3c] focus:ring-2 focus:ring-[#d3b28c]"
+            />
 
-            {error && <p className='text-red-500'>{error}</p>}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            { openModal.type !== 'view' && <button className='self-center transition-all w-40 pb-1 text-xl border border-transparent cursor-pointer text-gray-400 hover:text-black hover:bg-gray-300 hover:border-black px-5 rounded-3xl' onClick={handleEventCreation}>{openModal.type} event</button>}
-            { openModal.type === 'edit' && <button className='absolute right-5 bottom-7 transition-all w-20 pb-1 text-xl border border-transparent cursor-pointer text-gray-400 hover:text-black hover:text-red-600 hover:border-black rounded-3xl' onClick={deleteEvent}>delete</button>}
-            
+            {/* Buttons */}
+            <div className="flex flex-col items-center mt-4 space-y-3">
+              <button
+                onClick={handleEventCreation}
+                className="w-2/3 bg-[#d3b28c] text-white px-6 py-2 rounded-lg hover:bg-[#c0a07a] transition"
+              >
+                {openModal.type === "edit" ? "Update Event" : "Create Event"}
+              </button>
+              {openModal.type === "edit" && (
+                <button
+                  onClick={deleteEvent}
+                  className="w-2/3 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition"
+                >
+                  Delete
+                </button>
+              )}
+            </div>
+          </div>
         </div>
+      </div>
+    </>
+  );
+};
 
-        
-
-        <button className='absolute top-5 right-5 text-xl cursor-pointer transition-all hover:scale-120 hover:bg-gray-400 rounded-full' onClick={()=>setOpenModal({ isShown: false, type: '', data: null})}>
-            <MdClose />
-        </button>
-    </div>
-  )
-}
-
-export default CreateEvent
+export default CreateEvent;

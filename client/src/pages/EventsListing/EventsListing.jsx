@@ -25,7 +25,6 @@ const EventsListing = () => {
             const response = await axiosInstance.get('/get-events');
             console.log(response);
             if( response.data ) {
-                console.log(response)
                 setAllEvents(response.data.events);
             }
         } catch (error) {
@@ -40,7 +39,6 @@ const EventsListing = () => {
 
             try{
                 const response = await axiosInstance.get(`/search-events?searchTerm=${searchTerm}`);
-                console.log(response);
                 if( response.data ) {
                     let events = response.data.events;
 
@@ -55,15 +53,20 @@ const EventsListing = () => {
                 console.log(error.response);
             }
         } else {
-            getEvents();
-        }
-    }
+            try{
+                const response = await axiosInstance.get('/get-events');
+                if (response.data) {
+                    let events = response.data.events;
 
-    const filterEvents = async () => {
-        await searchEvents(); // Ensure the search is performed first
+                    if (category !== 'All') {
+                        events = events.filter(event => event.category === category);
+                    }
 
-        if (category !== 'All') {
-        setAllEvents(prevEvents => prevEvents.filter(event => event.category === category));
+                    setAllEvents(events);
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 
@@ -80,7 +83,7 @@ const EventsListing = () => {
     },[])
 
     useEffect(()=>{
-        filterEvents();
+        searchEvents();
     },[category]);
 
   return (
@@ -98,7 +101,7 @@ const EventsListing = () => {
                     <button className='cursor-pointer transition-opacity duration-200 rounded-full opacity-50 hover:opacity-100 p-1' onClick={searchEvents}><FaSearch /></button>
                 </div>
 
-                <select name="category" id="cat" className={`w-20 h-auto sm:w-30 outline-none cursor-pointer ${categoryColors[category]} border-3 rounded-r-3xl ml-2 px-2 py-1`} value={category} onChange={({target})=>setCategory(target.value)}>
+                <select name="category" id="cat" className={`w-20 h-auto sm:w-30 outline-none cursor-pointer ${categoryColors[category]} border-3 rounded-r-3xl ml-2 px-2 py-1`} value={category} onChange={({target})=>{setCategory(target.value)}}>
                     <option value="All" className='' defaultValue={true}>All</option>
                     <option value="Religious" className=''>Religious</option>
                     <option value="Social" className=''>Social</option>
