@@ -122,7 +122,7 @@ const SignIn = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className={`cursor-pointer w-full bg-indigo-500 text-white font-semibold py-3 rounded-md hover:bg-indigo-600 transition-all duration-200 ${
+          className={`w-full bg-indigo-500 text-white font-semibold py-3 rounded-md hover:bg-indigo-600 transition-all duration-200 ${
             (!formData.email ||
               !formData.password ||
               (mode === "Register" && !formData.name)) &&

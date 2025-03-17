@@ -14,7 +14,6 @@ const Navbar = () => {
 
     const navigate = useNavigate();
 
-
     const moveNavbar = () => { 
         setNavbarShow((prev) => !prev ) 
     }
