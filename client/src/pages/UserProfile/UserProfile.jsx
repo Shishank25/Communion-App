@@ -45,6 +45,7 @@ const UserProfile = () => {
                     description={item.description}
                     date={item.date}
                     category={item.category}
+                    location={item.location}
                     fetchUserEvents={fetchUserEvents}
                 />
 
