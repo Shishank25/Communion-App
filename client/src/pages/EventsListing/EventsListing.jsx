@@ -71,8 +71,7 @@ const EventsListing = () => {
         if( signedIn ) {
             setOpenModal({ isShown: true, type: 'create', data: null});
         } else {
-            setError('You must be signed in to create an event');
-            setTimeout(()=>{setError('')},3000);
+            alert("You must be signed in to create an Event.")
         }
     }
 
@@ -86,7 +85,6 @@ const EventsListing = () => {
 
   return (
     <div className='relative pt-25 sm:pt-0 min-h-screen'>
-        {error && <p>{error}</p> }
         <div className='flex flex-row justify-between w-7/10 sm:justify-between items-center h-auto py-5'>
 
             <h2 className='hidden sm:block text-3xl sm:ml-5 font-montserrat font-medium'>Events</h2>
