@@ -43,9 +43,9 @@ const Navbar = () => {
     },[])
 
   return (
-        <div className={`backdrop-blur flex justify-between h-12 px-5 py-3 transition-all duration-300 border-b border-neutral-600 sticky relative z-50 ${navbarShow ? 'top-8 lg:top-0' : '-top-4 lg:-top-12'}`}>
+        <div className={`backdrop-blur flex justify-between h-12 px-5 py-3 transition-all duration-300 border-b border-neutral-600 sticky relative z-50 ${navbarShow ? 'top-2 lg:top-0' : '-top-4 lg:-top-12'}`}>
 
-            <div className='flex items-center justify-evenly w-100'>
+            <div className='flex items-center justify-evenly w-100 filter'>
                 <button className='relative group cursor-pointer px-2 py-1 rounded-lg transition-all' onClick={()=>{navigate('/'); setIsSigning(false)}}>Home
                     <span className="absolute rounded-lg left-0 bottom-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full"></span>
                 </button>
