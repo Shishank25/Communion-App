@@ -1,9 +1,6 @@
-import { useState } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
 
-import Navbar from './components/Navbar/Navbar'
 import Home from './pages/Home/Home'
 import EventsListing from './pages/EventsListing/EventsListing'
 import About from './pages/About/About'
@@ -32,7 +29,7 @@ function App() {
           <div 
             className='md:hidden absolute top-0 -left-50 w-200 h-200 opacity-60
             rounded-full mix-blend-multiply filter blur-xl animate-blob -z-2' 
-              style={{ backgroundColor: '#FB88B4' }}>
+            style={{ backgroundColor: '#FB88B4' }}>
           </div>
       </div>
   )

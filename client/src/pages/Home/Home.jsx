@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../../AppContext';
 
 const Home = () => {

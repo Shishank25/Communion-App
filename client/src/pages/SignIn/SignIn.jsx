@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import React from "react";
 import { AppContext } from "../../AppContext";
 import axiosInstance from "../../utils/axiosInstance";
