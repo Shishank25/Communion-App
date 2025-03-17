@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <>
-    <div className='flex flex-col'>
+    <div className='flex flex-col mt-12'>
         <div className='flex flex-col lg:flex-row justify-between relative animate-fade-in'>
             <div className={`mt-30 ml-12 flex flex-col transition-all duration-400 ${isSigning ? 'opacity-0' : 'opacity-100'}`}>
                 <h3 className='text-5xl sm:text-7xl font-bold font-montserrat text-center'>Welcome</h3>

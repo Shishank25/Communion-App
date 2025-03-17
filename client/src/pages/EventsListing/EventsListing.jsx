@@ -87,7 +87,7 @@ const EventsListing = () => {
     },[category]);
 
   return (
-    <div className='relative pt-25 sm:pt-0 min-h-screen'>
+    <div className='relative mt-12 pt-25 sm:pt-0 min-h-screen'>
         <div className='flex flex-row justify-between w-7/10 sm:justify-between items-center h-auto py-5'>
 
             <h2 className='hidden sm:block text-3xl sm:ml-5 font-montserrat font-medium'>Events</h2>

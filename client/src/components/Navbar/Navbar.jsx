@@ -43,7 +43,7 @@ const Navbar = () => {
     },[])
 
   return (
-        <div className={`backdrop-blur font-medium flex shadow-lg justify-between h-12 px-5 py-3 transition-all duration-300 border-b border-neutral-600 sticky relative z-5 ${navbarShow ? 'top-8 lg:top-0' : '-top-4 lg:-top-12'}`}>
+        <div className={`backdrop-blur font-medium flex w-full shadow-lg justify-between h-12 px-5 py-3 transition-all duration-300 border-b border-neutral-600 fixed absolute z-5 ${navbarShow ? 'top-8 lg:top-0' : '-top-4 lg:-top-12'}`}>
 
             <div className='flex z-3 items-center justify-evenly w-100 filter'>
                 <button className='relative group cursor-pointer px-2 py-1 rounded-lg transition-all' onClick={()=>{navigate('/'); setIsSigning(false)}}>Home
