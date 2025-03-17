@@ -48,6 +48,8 @@
 }
 
 body {
+  margin: 0px;
+  padding: 0px;
   background: linear-gradient(135deg, #f4dccb 0%, #d8b5a5 50%, #bfa293 100%);
 }
 
