@@ -22,11 +22,16 @@ function App() {
             <Route path='/your-profile' element={ <UserProfile /> } />
             <Route path='/events/:eventId' element={ <EventPage /> } />
           </Routes>
-          <div className='md:hidden absolute top-50 right-0 w-150 h-150 rounded-full mix-blend-multiply filter blur-xl animate-blob opacity-60 -z-2' 
-              style={{ backgroundColor: '#FFC0D9' }}>
+
+          <div 
+            className='md:hidden absolute top-50 right-0 w-150 h-150 rounded-full 
+            mix-blend-multiply filter blur-xl animate-blob opacity-60 -z-2' 
+            style={{ backgroundColor: '#FFC0D9' }}>
           </div>
 
-          <div className='md:hidden absolute top-0 -left-50 w-200 h-200 rounded-full mix-blend-multiply filter blur-xl animate-blob opacity-60 -z-2' 
+          <div 
+            className='md:hidden absolute top-0 -left-50 w-200 h-200 opacity-60
+            rounded-full mix-blend-multiply filter blur-xl animate-blob -z-2' 
               style={{ backgroundColor: '#FB88B4' }}>
           </div>
       </div>

@@ -88,30 +88,39 @@ const EventsListing = () => {
     },[category]);
 
   return (
-    <div className='relative mt-12 pt-25 sm:pt-0 min-h-screen'>
+    <div 
+        className='relative mt-12 pt-25 sm:pt-0 min-h-screen'
+    >
+
         <div className='flex flex-row justify-between w-7/10 sm:justify-between items-center h-auto py-5'>
 
             <h2 className='hidden sm:block text-3xl sm:ml-5 font-montserrat font-medium'>Events</h2>
 
+            {/* Search Bar */}
             <div className='flex items-center justify-between w-100 md:w-150 border-2 rounded-3xl'>
-                
-                <input type="text" className='outline-none w-4/5 md:w-6/7 my-1 pl-5' placeholder='Search...' value={searchTerm} onChange={({target})=>setSearchTerm(target.value)}/>
+                <input 
+                    type="text" 
+                    className='outline-none w-4/5 md:w-6/7 my-1 pl-5' 
+                    placeholder='Search...' 
+                    value={searchTerm} 
+                    onChange={({target})=>setSearchTerm(target.value)}
+                />
 
                 <div className='flex items-center justify-end w-1/5'>
-                    {
-                        searchTerm && 
+                    { searchTerm && 
                         <button className='mr-2 cursor-pointer' onClick={()=>setSearchTerm('')}>
                             <MdClose />
                         </button>
                     }
+
                     <button 
                         className='cursor-pointer transition-opacity duration-200 rounded-full opacity-50 hover:opacity-100 p-1' 
                         onClick={searchEvents}>
                             <FaSearch />
                     </button>
-
                 </div>
 
+                {/* Category Filter */}
                 <select name="category" id="cat" className={`w-20 h-auto sm:w-30 outline-none cursor-pointer ${categoryColors[category].border} border-3 rounded-r-3xl ml-2 px-2 py-1`} value={category} onChange={({target})=>{setCategory(target.value)}}>
                     <option value="All" className='' defaultValue={true}>All</option>
                     <option value="Religious" className=''>Religious</option>
@@ -122,25 +131,23 @@ const EventsListing = () => {
                     <option value="Workshop" className=''>Workshop</option>
                     <option value="Others" className=''>Others</option>
                 </select>
-
             </div>
-
         </div>
 
         <div className="container mx-auto p-2 sm:p-15">
-        <div className="flex flex-wrap space-around gap-6 p-5">
-          {allEvents.map((item, index) => (
-            <EventCard
-              key={item._id}
-              id={item._id}
-              title={item.title}
-              description={item.description}
-              date={item.date}
-              category={item.category}
-              location={item.location}
-            />
-          ))}
-        </div>
+            <div className="flex flex-wrap space-around gap-6 p-5">
+                {allEvents.map((item, index) => (
+                    <EventCard
+                        key={item._id}
+                        id={item._id}
+                        title={item.title}
+                        description={item.description}
+                        date={item.date}
+                        category={item.category}
+                        location={item.location}
+                    />
+                ))}
+            </div>
         </div>
 
         <Modal
@@ -158,8 +165,14 @@ const EventsListing = () => {
         </Modal>
 
         <button 
-        className='cursor-pointer absolute fixed bg-orange-200 text-5xl text-black font-medium right-10 bottom-10 rounded-2xl flex justify-center items-center h-15 w-15 transition duration-300 ease-in-out hover:bg-orange-300 hover:rotate-180 hover:scale-120'
-        onClick={toggleModal}><BsPlus /></button>
+            className='cursor-pointer absolute fixed bg-orange-200 text-5xl 
+            text-black font-medium right-10 bottom-10 rounded-2xl flex 
+            justify-center items-center h-15 w-15 transition duration-300 
+            ease-in-out hover:bg-orange-300 hover:rotate-180 hover:scale-120'
+            onClick={toggleModal}
+        >
+            <BsPlus />
+        </button>
 
     </div>
   )

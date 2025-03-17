@@ -8,7 +8,6 @@ const UserProfile = () => {
 
     const { user, setUser, handleLogout } = useContext(AppContext);
     const [ userEvents, setUserEvents ] = useState([]);
-
     const [ error, setError ] = useState(null);
     const navigate = useNavigate();
 
@@ -35,30 +34,36 @@ const UserProfile = () => {
         </div>
 
         <div className='container mx-auto p-2 sm:p-15'>
-        <h2 className='font-bold text-xl font-montserrat font-bold-xl'>Your Events</h2>
+
+            <h2 className='font-bold text-xl font-montserrat font-bold-xl'>Your Events</h2>
+
             <div className='mt-8 grid grid-cols-1 sm:grid-cols-2 gap-20'>
+                {userEvents.map((item, index) => (
 
-            {userEvents.map((item, index) => (
+                    <UserEventCard
+                        key={item._id}
+                        id={item._id}
+                        title={item.title}
+                        description={item.description}
+                        date={item.date}
+                        category={item.category}
+                        location={item.location}
+                        fetchUserEvents={fetchUserEvents}
+                    />
 
-                <UserEventCard
-                    key={item._id}
-                    id={item._id}
-                    title={item.title}
-                    description={item.description}
-                    date={item.date}
-                    category={item.category}
-                    location={item.location}
-                    fetchUserEvents={fetchUserEvents}
-                />
-
-                ))
-            }
+                    ))
+                }
             </div>
         </div>
+
+
         <div className='absolute bottom-0 fixed flex border-t-1 justify-center w-full py-2 backdrop-blur-xs'>
             <button 
                 className='font-medium cursor-pointer text-gray-700 rounded-xl hover:bg-slate-200 p-2 hover:text-red-500'
-                onClick={()=>{handleLogout(); navigate('/');}}>Sign Out</button>
+                onClick={()=>{handleLogout(); navigate('/');}}
+            >
+                Sign Out
+            </button>
         </div>
     </div>
   )
