@@ -15,7 +15,7 @@ const UserEventCard = ({ id, title, description, date, category, location, fetch
 
   
     return (
-      <div className={`border-5 ${categoryColors[category]} flex flex-col sm:flex-row justify-between max-h-60 max-w-70 sm:max-w-9/10 py-3 px-5 rounded-lg shadow-lg relativeborder-5 flex flex-col sm:flex-row justify-between max-h-60 max-w-70 sm:max-w-9/10 py-3 px-5 rounded-lg shadow-lg relative`}>
+      <div className={`border-5 ${categoryColors[category].border} flex flex-col sm:flex-row justify-between max-h-60 max-w-70 sm:max-w-9/10 py-3 px-5 rounded-lg shadow-lg relativeborder-5 flex flex-col sm:flex-row justify-between max-h-60 max-w-70 sm:max-w-9/10 py-3 px-5 rounded-lg shadow-lg relative`}>
           <div className='flex flex-col max-w-1/2'>
             <div className='flex justify-between'>
               <p className='text-xs'>{formattedDate}</p>
@@ -26,7 +26,7 @@ const UserEventCard = ({ id, title, description, date, category, location, fetch
                   {description}
               </p>
           </div>
-          <button className='absolute top-8 right-8 transition-all w-20 pb-1 text-xl border border-transparent cursor-pointer text-gray-600 hover:text-black hover:text-blue-700 hover:border-black rounded-3xl' onClick={()=>setOpenModal({ isShown: true, type: 'edit', data: null})}>Edit</button>
+          <button className='absolute top-8 right-8 transition-all w-20 pb-1 text-xl border border-transparent cursor-pointer text-gray-600 hover:text-black hover:text-blue-700 hover:border-black rounded-3xl' onClick={()=>setOpenModal({ isShown: true, type: 'edit', data: event})}>Edit</button>
 
           <Modal
             isOpen={openModal.isShown}
@@ -39,9 +39,9 @@ const UserEventCard = ({ id, title, description, date, category, location, fetch
             ariaHideApp={false}
             >
 
-            <CreateEvent event={event} getEvents={fetchUserEvents} type={openModal.type}/>
-        </Modal>
-        
+                <CreateEvent event={openModal.data} getEvents={fetchUserEvents}/>
+            </Modal>
+
       </div>
     )
   }
