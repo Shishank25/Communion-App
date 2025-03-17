@@ -136,14 +136,14 @@ const CreateEvent = ({ event, getEvents }) => {
             <div className="flex flex-col items-center mt-4 space-y-3">
               <button
                 onClick={handleEventCreation}
-                className="w-2/3 bg-[#d3b28c] text-white px-6 py-2 rounded-lg hover:bg-[#c0a07a] transition"
+                className="w-2/3 bg-[#d3b28c] text-white px-6 py-2 rounded-lg hover:bg-[#c0a07a] transition cursor-pointer"
               >
                 {openModal.type === "edit" ? "Update Event" : "Create Event"}
               </button>
               {openModal.type === "edit" && (
                 <button
                   onClick={deleteEvent}
-                  className="w-2/3 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition"
+                  className="w-2/3 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition cursor-pointer"
                 >
                   Delete
                 </button>
