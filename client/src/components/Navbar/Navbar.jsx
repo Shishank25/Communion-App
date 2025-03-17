@@ -43,16 +43,16 @@ const Navbar = () => {
     },[])
 
   return (
-        <div className={`flex justify-between h-12 px-5 py-3 transition-all duration-300 border-b border-neutral-600 relative ${navbarShow ? 'top-0' : '-top-12'}`}>
+        <div className={`backdrop-blur flex justify-between h-12 px-5 py-3 transition-all duration-300 border-b border-neutral-600 sticky relative z-50 ${navbarShow ? 'top-0' : '-top-12'}`}>
 
             <div className='flex items-center justify-evenly w-100'>
-                <button className='relative group cursor-pointer px-2 py-1 rounded-lg transition-all' onClick={()=>navigate('/')}>Home
+                <button className='relative group cursor-pointer px-2 py-1 rounded-lg transition-all' onClick={()=>{navigate('/'); setIsSigning(false)}}>Home
                     <span className="absolute rounded-lg left-0 bottom-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full"></span>
                 </button>
-                <button className='relative group cursor-pointer transition-all duration-500 ease-out px-2 py-1 rounded-lg' onClick={()=>navigate('/events')}>Events
+                <button className='relative group cursor-pointer transition-all duration-500 ease-out px-2 py-1 rounded-lg' onClick={()=>{navigate('/events'); setIsSigning(false)}}>Events
                     <span className="absolute rounded-lg left-0 bottom-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full"></span>
                 </button>
-                <button className='relative group cursor-pointer transition-all duration-500 ease-out px-2 py-1 rounded-lg' onClick={()=>navigate('/about')}>About
+                <button className='relative group cursor-pointer transition-all duration-500 ease-out px-2 py-1 rounded-lg' onClick={()=>{navigate('/about'); setIsSigning(false)}}>About
                     <span className="absolute rounded-lg left-0 bottom-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full"></span>
                 </button>
             </div>
@@ -60,7 +60,7 @@ const Navbar = () => {
             {
                 !signedIn ? <div className='flex w-30 justify-between'>
 
-                <button onClick={()=>setIsSigning(prev=>!prev)}>Sign-In</button>
+                <button onClick={()=>{setIsSigning(prev=>!prev); navigate('/')}}>Sign-In</button>
 
                 </div> 
                 
@@ -73,7 +73,7 @@ const Navbar = () => {
                 </div> 
             }
 
-                <div className={`bg-neutral-800 rounded-xl absolute h-auto right-12 top-15 transition-opacity ease-out duration-700 ${isSigning ? 'z-5 opacity-100' : 'opacity-0 -z-1'}`}>
+                <div className={`rounded-xl w-full px-24 absolute h-auto flex justify-center lg:justify-end top-15 transition-opacity ease-out duration-700 ${isSigning ? 'z-5 opacity-100' : 'opacity-0 -z-1'}`}>
                     <SignIn />
                 </div>
 

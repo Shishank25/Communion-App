@@ -13,8 +13,8 @@ import EventPage from './pages/EventPage/EventPage';
 function App() {
 
   return (
-      <div className='relative overflow-hidden'>
-        <Navbar />
+      <div className='relative overflow-hidden flex flex-col'>
+        {/* <Navbar /> */}
         
           <Routes>
             <Route path='/' element={ <Home /> }/>

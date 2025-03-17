@@ -16,7 +16,9 @@ const EventsListing = () => {
 
     const [ allEvents, setAllEvents ] = useState([]);
 
-    const { openModal, setOpenModal } = useContext(AppContext)
+    const [ error, setError ] = useState(null);
+
+    const { openModal, setOpenModal, signedIn } = useContext(AppContext)
 
     const getEvents = async () =>{
         try{
@@ -65,6 +67,15 @@ const EventsListing = () => {
         }
     }
 
+    const toggleModal = () => {
+        if( signedIn ) {
+            setOpenModal({ isShown: true, type: 'create', data: null});
+        } else {
+            setError('You must be signed in to create an event');
+            setTimeout(()=>{setError('')},3000);
+        }
+    }
+
     useEffect(()=>{
         getEvents();
     },[])
@@ -75,6 +86,7 @@ const EventsListing = () => {
 
   return (
     <div className='relative pt-25 sm:pt-0 min-h-screen'>
+        {error && <p>{error}</p> }
         <div className='flex flex-row justify-between sm:justify-between items-center h-auto py-5'>
 
             <h2 className='hidden sm:block text-3xl sm:ml-5 font-montserrat font-medium'>Events</h2>
@@ -133,10 +145,10 @@ const EventsListing = () => {
 
             <CreateEvent setOpenModal={setOpenModal} getEvents={getEvents}/>
         </Modal>
-        
+
         <button 
             className='absolute fixed cursor-pointer text-black font-medium right-10 bottom-10 text-5xl rounded-2xl bg-orange-200 flex items-start justify-evenly h-15 w-15 hover:bg-orange-300 transition duration-300 ease-in-out hover:rotate-180 hover:scale-120'
-            onClick={()=>setOpenModal({ isShown: true, type: 'create', data: null})}
+            onClick={toggleModal}
             >+</button>
 
 

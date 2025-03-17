@@ -31,7 +31,7 @@ const Home = () => {
                     </button>
                 </div>
             </div>
-            <div className={`h-auto sm:mx-auto xl:mr-30 transition-all ease-out duration-1500 ${isSigning ? '-translate-x-140' : 'translate-x-0'}`}>
+            <div className={`h-auto sm:mx-auto xl:mr-30 transition-all ease-out duration-1500 ${isSigning ? 'lg:-translate-x-140' : 'lg:translate-x-0'}`}>
                 <video src="/bgClips/Timeline.mov" className='min-h-100 sm:h-170 rounded-xl' autoPlay muted loop playsInline ></video>
             </div>
         </div>
