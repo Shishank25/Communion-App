@@ -5,8 +5,9 @@ import Modal from 'react-modal'
 import axiosInstance from '../../utils/axiosInstance'
 
 import { MdClose } from 'react-icons/md'
-
 import { FaSearch } from "react-icons/fa";
+import { BsPlus } from "react-icons/bs";
+
 import { AppContext } from '../../AppContext'
 
 const EventsListing = () => {
@@ -97,8 +98,18 @@ const EventsListing = () => {
                 <input type="text" className='outline-none w-4/5 md:w-6/7 my-1 pl-5' placeholder='Search...' value={searchTerm} onChange={({target})=>setSearchTerm(target.value)}/>
 
                 <div className='flex items-center justify-end w-1/5'>
-                    {searchTerm && <button className='mr-2 cursor-pointer' onClick={()=>setSearchTerm('')}><MdClose /></button>}
-                    <button className='cursor-pointer transition-opacity duration-200 rounded-full opacity-50 hover:opacity-100 p-1' onClick={searchEvents}><FaSearch /></button>
+                    {
+                        searchTerm && 
+                        <button className='mr-2 cursor-pointer' onClick={()=>setSearchTerm('')}>
+                            <MdClose />
+                        </button>
+                    }
+                    <button 
+                        className='cursor-pointer transition-opacity duration-200 rounded-full opacity-50 hover:opacity-100 p-1' 
+                        onClick={searchEvents}>
+                            <FaSearch />
+                    </button>
+
                 </div>
 
                 <select name="category" id="cat" className={`w-20 h-auto sm:w-30 outline-none cursor-pointer ${categoryColors[category]} border-3 rounded-r-3xl ml-2 px-2 py-1`} value={category} onChange={({target})=>{setCategory(target.value)}}>
@@ -116,24 +127,20 @@ const EventsListing = () => {
 
         </div>
 
-        <div className='container mx-auto p-2 sm:p-15'>
-            <div className='mt-8 grid grid-cols-1 sm:grid-cols-2 gap-20'>
-
-            {allEvents.map((item, index) => (
-
-                <EventCard
-                    key={item._id}
-                    id={item._id}
-                    title={item.title}
-                    description={item.description}
-                    date={item.date}
-                    category={item.category}
-                    location={item.location}
-                />
-
-                ))
-            }
-            </div>
+        <div className="container mx-auto p-2 sm:p-15">
+        <div className="flex flex-wrap space-around gap-6 p-5">
+          {allEvents.map((item, index) => (
+            <EventCard
+              key={item._id}
+              id={item._id}
+              title={item.title}
+              description={item.description}
+              date={item.date}
+              category={item.category}
+              location={item.location}
+            />
+          ))}
+        </div>
         </div>
 
         <Modal
@@ -151,10 +158,8 @@ const EventsListing = () => {
         </Modal>
 
         <button 
-            className='absolute fixed cursor-pointer text-black font-medium right-10 bottom-10 text-5xl rounded-2xl bg-orange-200 flex items-start justify-evenly h-15 w-15 hover:bg-orange-300 transition duration-300 ease-in-out hover:rotate-180 hover:scale-120'
-            onClick={toggleModal}
-            >+</button>
-
+        className='cursor-pointer absolute fixed bg-orange-200 text-5xl text-black font-medium right-10 bottom-10 rounded-2xl flex justify-center items-center h-15 w-15 transition duration-300 ease-in-out hover:bg-orange-300 hover:rotate-180 hover:scale-120'
+        onClick={toggleModal}><BsPlus /></button>
 
     </div>
   )

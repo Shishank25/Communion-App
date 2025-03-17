@@ -5,16 +5,22 @@ const eventSchema = new Schema ({
     title: { type: String },
     description: { type: String },
     category: { type: String },
-    date: { type: Date },
+    date: { type: Date, required: true },
     location: { type: String },
     userId: { type: String, required: true },
     popularity: { type: Number, default: 0 },
-    createdOn: { type: Date, default: new Date() },
+    createdOn: { type: Date, default: Date.now },
     expiresAt: {
         type: Date,
-        default: () => new Date(Date.now() + 24 * 60 * 60 * 1000),
         index: { expires: 0 }, 
     },
+});
+
+eventSchema.pre("save", function (next) {
+    if (!this.expiresAt && this.date) {
+        this.expiresAt = new Date(this.date.getTime() + 24 * 60 * 60 * 1000);
+    }
+    next();
 });
 
 module.exports = mongoose.model("Event", eventSchema);
