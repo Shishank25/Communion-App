@@ -1,0 +1,3 @@
+{
+    "connectionString": "mongodb+srv://admin:communionAdmin@communion-database.xwtzt.mongodb.net/?retryWrites=true&w=majority&appName=Communion-database"
+}
