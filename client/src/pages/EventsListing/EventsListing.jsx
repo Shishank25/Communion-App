@@ -91,7 +91,7 @@ const EventsListing = () => {
 
             <h2 className='hidden sm:block text-3xl sm:ml-5 font-montserrat font-medium'>Events</h2>
 
-            <div className='flex items-center justify-between w-100 md:w-150 border rounded-3xl'>
+            <div className='flex items-center justify-between w-100 md:w-150 border-2 rounded-3xl'>
                 
                 <input type="text" className='outline-none w-4/5 md:w-6/7 my-1 pl-5' placeholder='Search...' value={searchTerm} onChange={({target})=>setSearchTerm(target.value)}/>
 
@@ -100,7 +100,7 @@ const EventsListing = () => {
                     <button className='cursor-pointer transition-opacity duration-200 rounded-full opacity-50 hover:opacity-100 p-1' onClick={searchEvents}><FaSearch /></button>
                 </div>
 
-                <select name="category" id="cat" className={`w-20 h-auto sm:w-30 outline-none cursor-pointer ${categoryColors[category]} border-2 rounded-r-3xl ml-2 px-2 py-1`} value={category} onChange={({target})=>setCategory(target.value)}>
+                <select name="category" id="cat" className={`w-20 h-auto sm:w-30 outline-none cursor-pointer ${categoryColors[category]} border-3 rounded-r-3xl ml-2 px-2 py-1`} value={category} onChange={({target})=>setCategory(target.value)}>
                     <option value="All" className='' defaultValue={true}>All</option>
                     <option value="Religious" className=''>Religious</option>
                     <option value="Social" className=''>Social</option>

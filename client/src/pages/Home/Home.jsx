@@ -23,7 +23,7 @@ const Home = () => {
                 <p className='my-4 text-center sm:w-150 text-lg italic font-inter'>Connect with like-minded people, explore events, and engage with your community in meaningful ways.
                 </p>
                 <div className='flex flex-col justify-center items-center mt-10'>
-                    <p className='font-inter text-center'>Don't miss out on what's happeing in your city!</p>
+                    <p className='font-inter font-medium text-lg text-center'>Don't miss out on what's happeing in your city!</p>
                     <button 
                         className='cta-button text-2xl rounded-2xl font-medium bg-[#e48f7a] text-[#fff5f0] mt-4 px-2 py-2 cursor-pointer w-60 self-center transition-all hover:scale-110 hover:shadow-xl'
                         onClick={redirectToEvents}

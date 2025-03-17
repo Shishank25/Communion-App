@@ -52,4 +52,8 @@ body {
   padding: 0px;
   background: linear-gradient(135deg, #f4dccb 0%, #d8b5a5 50%, #bfa293 100%);
 }
+.dialog {
+  background: rgb(255,207,207);
+background: linear-gradient(42deg, rgba(255,207,207,1) 0%, rgba(255,193,193,1) 100%);
+}
 

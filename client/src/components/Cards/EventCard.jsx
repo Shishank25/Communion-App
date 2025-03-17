@@ -12,7 +12,7 @@ const EventCard = ({ id, title, description, date, category, location }) => {
   const formattedDate = dateObj.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
 
   return (
-    <div className={`animate-fade-in border-5 ${categoryColors[category]} flex flex-col sm:flex-row justify-between h-64 max-w-70 sm:max-w-9/10 py-3 px-5 rounded-lg shadow-lg`} onClick={()=>{navigate(`/events/${id}`)}}>
+    <div className={`animate-fade-in border-5 ${categoryColors[category]} flex flex-col sm:flex-row justify-between h-80 max-w-100 sm:max-w-9/10 py-3 px-5 rounded-lg shadow-lg`} onClick={()=>{navigate(`/events/${id}`)}}>
         <div className='flex flex-col w-full'>
             <div className='flex justify-between'>
               <p className='text-xs'>{formattedDate}</p>
