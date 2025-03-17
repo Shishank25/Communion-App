@@ -43,9 +43,9 @@ const Navbar = () => {
     },[])
 
   return (
-        <div className={`backdrop-blur flex justify-between h-12 px-5 py-3 transition-all duration-300 border-b border-neutral-600 sticky relative z-50 ${navbarShow ? 'top-8 lg:top-0' : '-top-4 lg:-top-12'}`}>
+        <div className={`backdrop-blur font-medium flex shadow-lg justify-between h-12 px-5 py-3 transition-all duration-300 border-b border-neutral-600 sticky relative z-5 ${navbarShow ? 'top-8 lg:top-0' : '-top-4 lg:-top-12'}`}>
 
-            <div className='flex items-center justify-evenly w-100 filter'>
+            <div className='flex z-3 items-center justify-evenly w-100 filter'>
                 <button className='relative group cursor-pointer px-2 py-1 rounded-lg transition-all' onClick={()=>{navigate('/'); setIsSigning(false)}}>Home
                     <span className="absolute rounded-lg left-0 bottom-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full"></span>
                 </button>
@@ -60,7 +60,7 @@ const Navbar = () => {
             {
                 !signedIn ? <div className='flex w-30 justify-between'>
 
-                <button onClick={()=>{setIsSigning(prev=>!prev); navigate('/')}}>Sign-In</button>
+                <button onClick={()=>{setIsSigning(prev=>!prev); navigate('/')}} className='cursor-pointer hover:underline'>Sign-In</button>
 
                 </div> 
                 
@@ -73,7 +73,7 @@ const Navbar = () => {
                 </div> 
             }
 
-                <div className={`rounded-xl w-8/10 sm:w-9/10 lg:w-97/100 lg:px-24 absolute h-auto flex justify-center lg:justify-end top-15 transition-opacity ease-out duration-700 ${isSigning ? 'z-5 opacity-100' : 'opacity-0 -z-1'}`}>
+                <div className={`rounded-xl w-8/10 sm:w-9/10 lg:w-97/100 lg:px-24 absolute h-auto flex justify-center lg:justify-end top-15 transition-opacity ease-out duration-700 ${isSigning ? 'opacity-100' : 'opacity-0 hidden'}`}>
                     <SignIn />
                 </div>
 

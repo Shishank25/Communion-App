@@ -11,6 +11,7 @@ export const AppProvider = ({ children }) => {
   const [ isSigning, setIsSigning ] = useState(false);
 
   const categoryColors = {     
+          All: "border-transparent",
           Religious: "border-indigo-700",  
           Social: "border-blue-500",       
           Charity: "border-green-600",     

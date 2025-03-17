@@ -17,21 +17,21 @@ const Home = () => {
     <>
     <div className='flex flex-col'>
         <div className='flex flex-col lg:flex-row justify-between relative animate-fade-in'>
-            <div className={`mt-30 ml-4 flex flex-col transition-all duration-400 ${isSigning ? 'opacity-0' : 'opacity-100'}`}>
-                <h3 className='text-5xl sm:text-7xl font-bold font-montserrat'>Welcome</h3>
-                <h2 className='text-xl text-center sm:text-left font-medium mt-20 mb-4'>Bringing Communities Together</h2>
-                <p className='my-4 text-center sm:text-left sm:w-150 text-lg italic font-inter'>Connect with like-minded people, explore events, and engage with your community in meaningful ways.
+            <div className={`mt-30 ml-12 flex flex-col transition-all duration-400 ${isSigning ? 'opacity-0' : 'opacity-100'}`}>
+                <h3 className='text-5xl sm:text-7xl font-bold font-montserrat text-center'>Welcome</h3>
+                <h2 className='text-xl text-center font-medium mt-20 mb-4'>Bringing Communities Together</h2>
+                <p className='my-4 text-center sm:w-150 text-lg italic font-inter'>Connect with like-minded people, explore events, and engage with your community in meaningful ways.
                 </p>
                 <div className='flex flex-col justify-center items-center mt-10'>
                     <p className='font-inter text-center'>Don't miss out on what's happeing in your city!</p>
                     <button 
-                        className='cta-button text-2xl rounded-2xl font-medium bg-amber-400 mt-4 px-2 py-2 cursor-pointer w-60 self-center transition-all hover:scale-110 hover:shadow-xl'
+                        className='cta-button text-2xl rounded-2xl font-medium bg-[#e48f7a] text-[#fff5f0] mt-4 px-2 py-2 cursor-pointer w-60 self-center transition-all hover:scale-110 hover:shadow-xl'
                         onClick={redirectToEvents}
                         > Explore Events!
                     </button>
                 </div>
             </div>
-            <div className={`h-auto sm:mx-auto xl:mr-30 transition-all ease-out duration-1500 ${isSigning ? 'lg:-translate-x-140' : 'lg:translate-x-0'}`}>
+            <div className={`h-auto sm:mx-auto mt-5 xl:mr-30 transition-all ease-out duration-1500 ${isSigning ? 'lg:-translate-x-140' : 'lg:translate-x-0'}`}>
                 <video src="/bgClips/Timeline.mov" className='min-h-100 sm:h-170 rounded-xl' autoPlay muted loop playsInline ></video>
             </div>
         </div>

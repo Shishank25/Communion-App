@@ -42,4 +42,12 @@
 
 }
 
+.gradient-bg{
+  background: rgb(152,58,180);
+  background: linear-gradient(42deg, rgba(152,58,180,0.8066876408766632) 0%, rgba(253,29,82,0.6610293775713411) 61%, rgba(252,217,69,0.8374999658066351) 100%);
+}
+
+body {
+  background: linear-gradient(135deg, #f4dccb 0%, #d8b5a5 50%, #bfa293 100%);
+}
 

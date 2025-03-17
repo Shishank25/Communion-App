@@ -100,12 +100,12 @@ const SignIn = () => {
   },[mode])
 
   return (
-    <div className='w-50'>
+    <div className='w-50 bg-white rounded-xl'>
 
       <div className='flex justify-evenly items-center border-b p-1'>
 
-        <button onClick={()=>setMode('Register')}>Register</button>
-        <button onClick={()=>setMode('Login')}>Login</button>
+        <button onClick={()=>setMode('Register')} className={`${mode === 'Register' ? 'text-black': 'text-gray-700'}`}>Register</button>
+        <button onClick={()=>setMode('Login')} className={`${mode === 'Login' ? 'text-black': 'text-gray-700'}`}>Login</button>
 
       </div>
 
@@ -116,21 +116,21 @@ const SignIn = () => {
           value={name} 
           onChange={({target})=>setName(target.value)} 
           placeholder='Full Name' 
-          className={`${mode !== 'Register' ? 'hidden' : ''} text-center`}
+          className={`${mode !== 'Register' ? 'hidden' : ''} text-center border-b outline-none`}
         />
         <input 
           type="email" 
           value={email} 
           onChange={({target})=>setEmail(target.value)} 
           placeholder='Email Address' 
-          className="text-center"
+          className="text-center border-b outline-none"
         />
         <input 
           type="password" 
           value={password} 
           onChange={({target})=>setPassword(target.value)} 
           placeholder='Password' 
-          className="text-center"
+          className="text-center border-b outline-none"
         />
 
         {error && <p className="">{error}</p> }

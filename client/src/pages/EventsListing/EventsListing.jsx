@@ -18,7 +18,7 @@ const EventsListing = () => {
 
     const [ error, setError ] = useState(null);
 
-    const { openModal, setOpenModal, signedIn } = useContext(AppContext)
+    const { openModal, setOpenModal, signedIn, categoryColors } = useContext(AppContext)
 
     const getEvents = async () =>{
         try{
@@ -87,28 +87,31 @@ const EventsListing = () => {
   return (
     <div className='relative pt-25 sm:pt-0 min-h-screen'>
         {error && <p>{error}</p> }
-        <div className='flex flex-row justify-between sm:justify-between items-center h-auto py-5'>
+        <div className='flex flex-row justify-between w-7/10 sm:justify-between items-center h-auto py-5'>
 
             <h2 className='hidden sm:block text-3xl sm:ml-5 font-montserrat font-medium'>Events</h2>
 
-            <div className='flex items-center justify-between w-100 px-5 py-1 border rounded-3xl'>
-                <input type="text" className='outline-none w-4/5' placeholder='Search...' value={searchTerm} onChange={({target})=>setSearchTerm(target.value)}/>
+            <div className='flex items-center justify-between w-100 md:w-150 border rounded-3xl'>
+                
+                <input type="text" className='outline-none w-4/5 md:w-6/7 my-1 pl-5' placeholder='Search...' value={searchTerm} onChange={({target})=>setSearchTerm(target.value)}/>
+
                 <div className='flex items-center justify-end w-1/5'>
                     {searchTerm && <button className='mr-2 cursor-pointer' onClick={()=>setSearchTerm('')}><MdClose /></button>}
                     <button className='cursor-pointer transition-opacity duration-200 rounded-full opacity-50 hover:opacity-100 p-1' onClick={searchEvents}><FaSearch /></button>
                 </div>
-            </div>
 
-            <select name="category" id="cat" className='w-20 sm:w-30 mr-18 outline-none cursor-pointer border rounded-xl px-2' value={category} onChange={({target})=>setCategory(target.value)}>
-                <option value="All" className='' defaultValue={true}>All</option>
-                <option value="Religious" className=''>Religious</option>
-                <option value="Social" className=''>Social</option>
-                <option value="Charity" className=''>Charity</option>
-                <option value="Festival" className=''>Festival</option>
-                <option value="Fest" className=''>Fest</option>
-                <option value="Workshop" className=''>Workshop</option>
-                <option value="Others" className=''>Others</option>
-            </select>
+                <select name="category" id="cat" className={`w-20 h-auto sm:w-30 outline-none cursor-pointer ${categoryColors[category]} border-2 rounded-r-3xl ml-2 px-2 py-1`} value={category} onChange={({target})=>setCategory(target.value)}>
+                    <option value="All" className='' defaultValue={true}>All</option>
+                    <option value="Religious" className=''>Religious</option>
+                    <option value="Social" className=''>Social</option>
+                    <option value="Charity" className=''>Charity</option>
+                    <option value="Festival" className=''>Festival</option>
+                    <option value="Fest" className=''>Fest</option>
+                    <option value="Workshop" className=''>Workshop</option>
+                    <option value="Others" className=''>Others</option>
+                </select>
+
+            </div>
 
         </div>
 
