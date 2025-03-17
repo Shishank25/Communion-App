@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../AppContext'
 import axiosInstance from '../../utils/axiosInstance';
 import UserEventCard from '../../components/Cards/UserEventCard';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
 
@@ -9,6 +10,7 @@ const UserProfile = () => {
     const [ userEvents, setUserEvents ] = useState([]);
 
     const [ error, setError ] = useState(null);
+    const navigate = useNavigate();
 
     const fetchUserEvents = async () => {
         try{
@@ -24,7 +26,7 @@ const UserProfile = () => {
     useEffect(()=>{
         fetchUserEvents();
     },[])
-
+    
   return (
     <div className='mt-5 min-h-screen mt-12'>
         <div className=' mx-5'>
@@ -56,7 +58,7 @@ const UserProfile = () => {
         <div className='absolute bottom-0 fixed flex border-t-1 justify-center w-full py-2 backdrop-blur-xs'>
             <button 
                 className='font-medium cursor-pointer text-gray-700 rounded-xl hover:bg-slate-200 p-2 hover:text-red-500'
-                onClick={handleLogout}>Sign Out</button>
+                onClick={()=>{handleLogout(); navigate('/');}}>Sign Out</button>
         </div>
     </div>
   )
