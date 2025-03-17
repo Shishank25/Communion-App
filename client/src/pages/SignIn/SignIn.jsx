@@ -1,145 +1,144 @@
-import { useEffect, useState, useContext } from "react"
-import React from 'react'
+import { useEffect, useState, useContext } from "react";
+import React from "react";
 import { AppContext } from "../../AppContext";
 import axiosInstance from "../../utils/axiosInstance";
 
 const SignIn = () => {
+  const [mode, setMode] = useState("Login");
 
-  const [ mode, setMode ] = useState('Login');
+  const { setUser, setSignedIn, setIsSigning } = useContext(AppContext);
 
-  const { user, setUser, setSignedIn, setIsSigning } = useContext(AppContext);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-  const [ name, setName ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ] = useState('');
+  const [error, setError] = useState("");
 
-  const [ error, setError ] = useState('');
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSignIn = async (e) => {
-
     e.preventDefault();
+    setError(""); // Reset error before validation
 
-    // Login API call
-    if (mode==='Login'){ 
+    const { name, email, password } = formData;
 
-      if (!email) {
-        setError('Please enter your email');
+    if (mode === "Login") {
+      if (!email || !password) {
+        setError("Please fill all required fields.");
+        return;
       }
-      if (!password) {
-        setError('Please enter your password');
+    } else {
+      if (!name || !email || !password) {
+        setError("Please fill all required fields.");
+        return;
       }
-
-      try {
-        
-        const response = await axiosInstance.post('/login', { email: email, password: password });
-
-        if (response.data && response.data.accessToken) {
-          localStorage.setItem('token', response.data.accessToken);
-          setUser({ fullName: response.data.fullName, email: email });
-          setSignedIn(true);
-          setIsSigning(false);
-          setPassword('');
-        }
-
-      } catch (error) { 
-
-        if (error.response && error.response.data && error.response.data.message ){
-          setError( error.response.data.message );
-        } else {
-          console.log(error.response)
-          setError( 'An unexpected error has occured' );
-        }
-
-      }
-
     }
 
-    // Register API call
-    if (mode==='Register'){
+    try {
+      const endpoint = mode === "Login" ? "/login" : "/register";
+      const payload =
+        mode === "Login"
+          ? { email, password }
+          : { fullName: name, email, password };
 
-      if (!name) {
-        setError('Please enter your name');
+      const response = await axiosInstance.post(endpoint, payload);
+
+      if (response.data && response.data.accessToken) {
+        localStorage.setItem("token", response.data.accessToken);
+        setUser({ fullName: response.data.fullName, email });
+        setSignedIn(true);
+        setIsSigning(false);
+        setFormData({ name: "", email: "", password: "" }); // Clear form after success
       }
-      if (!email) {
-        setError('Please enter your email');
-      }
-      if (!password) {
-        setError('Please enter your password');
-      }
-
-      try {
-        
-        const response = await axiosInstance.post('/register', { fullName: name, email: email, password: password });
-
-        if (response.data && response.data.accessToken) {
-          localStorage.setItem('token', response.data.accessToken);
-          setUser({ fullName: response.data.fullName, email: email });
-          setSignedIn(true);
-          setIsSigning(false);
-          setPassword('');
-        }
-
-      } catch (error) { 
-
-        if (error.response && error.response.data && error.response.data.message ){
-          setError( error.response.data.message );
-        } else {
-          console.log(error.response)
-          setError( 'An unexpected error has occured' );
-        }
-
-      }
-
+    } catch (error) {
+      setError(
+        error.response?.data?.message || "An unexpected error occurred."
+      );
     }
-
-
-  }
-
-  useEffect(()=>{
-   return 
-  },[mode])
+  };
 
   return (
-    <div className='w-50 dialog rounded-xl'>
-
-      <div className='flex justify-evenly items-center border-b p-1'>
-
-        <button onClick={()=>setMode('Register')} className={`${mode === 'Register' ? 'text-black': 'text-gray-700'} cursor-pointer`}>Register</button>
-        <button onClick={()=>setMode('Login')} className={`${mode === 'Login' ? 'text-black': 'text-gray-700'} cursor-pointer`}>Login</button>
-
+    <div className="w-80 bg-[#dad4cd] shadow-lg rounded-lg overflow-hidden">
+      {/* Tabs for Login / Register */}
+      <div className="flex">
+        <button
+          className={`w-1/2 py-3 text-center ${
+            mode === "Register"
+              ? "border-b-2 border-indigo-500 font-bold text-indigo-600"
+              : "text-gray-500"
+          }`}
+          onClick={() => setMode("Register")}
+        >
+          Register
+        </button>
+        <button
+          className={`w-1/2 py-3 text-center ${
+            mode === "Login"
+              ? "border-b-2 border-indigo-500 font-bold text-indigo-600"
+              : "text-gray-500"
+          }`}
+          onClick={() => setMode("Login")}
+        >
+          Login
+        </button>
       </div>
 
-      <div className='flex flex-col h-70 items-center justify-evenly p-5'>
-
-        <input 
-          type="text" 
-          value={name} 
-          onChange={({target})=>setName(target.value)} 
-          placeholder='Full Name' 
-          className={`${mode !== 'Register' ? 'hidden' : ''} text-center border-b outline-none max-w-40`}
+      {/* Form Section */}
+      <form className="p-6 flex flex-col space-y-4" onSubmit={handleSignIn}>
+        {mode === "Register" && (
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Full Name"
+            className="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400"
+          />
+        )}
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email Address"
+          className="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400"
         />
-        <input 
-          type="email" 
-          value={email} 
-          onChange={({target})=>setEmail(target.value)} 
-          placeholder='Email Address' 
-          className="text-center border-b outline-none max-w-40"
-        />
-        <input 
-          type="password" 
-          value={password} 
-          onChange={({target})=>setPassword(target.value)} 
-          placeholder='Password' 
-          className="text-center border-b outline-none max-w-40"
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Password"
+          className="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400"
         />
 
-        {error && <p className="">{error}</p> }
+        {/* Error Message */}
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-        <button onClick={handleSignIn} className="cursor-pointer">{mode}</button>
-
-      </div>
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className={`w-full bg-indigo-500 text-white font-semibold py-3 rounded-md hover:bg-indigo-600 transition-all duration-200 ${
+            (!formData.email ||
+              !formData.password ||
+              (mode === "Register" && !formData.name)) &&
+            "opacity-50 cursor-not-allowed"
+          }`}
+          disabled={
+            !formData.email ||
+            !formData.password ||
+            (mode === "Register" && !formData.name)
+          }
+        >
+          {mode}
+        </button>
+      </form>
     </div>
-  )
-}
+  );
+};
 
 export default SignIn;
