@@ -7,6 +7,8 @@ const CreateEvent = ({ event, getEvents }) => {
   const [title, setTitle] = useState(event?.title || "");
   const [description, setDescription] = useState(event?.description || "");
   const [date, setDate] = useState("");
+  const [toDate, setToDate] = useState('');
+  const [isSingleDay, setIsSingleDay] = useState(true); 
   const [category, setCategory] = useState(event?.category || "");
   const [location, setLocation] = useState(event?.location || "");
   const [error, setError] = useState("");
@@ -18,6 +20,7 @@ const CreateEvent = ({ event, getEvents }) => {
     if (!description) return setError("Please describe your event");
     if (!date) return setError("Please set a date and time");
     if (!category) return setError("Select a category for the event");
+    if (isSingleDay) setToDate(date);
 
     try {
       if (openModal.type === "create") {
@@ -25,6 +28,7 @@ const CreateEvent = ({ event, getEvents }) => {
           title,
           description,
           date,
+          toDate,
           category,
           location,
         });
@@ -35,6 +39,7 @@ const CreateEvent = ({ event, getEvents }) => {
           title,
           description,
           date,
+          toDate,
           category,
           location,
         });
@@ -67,6 +72,7 @@ const CreateEvent = ({ event, getEvents }) => {
       {/* Modal */}
       <div className="fixed inset-0 flex justify-center items-center z-50">
         <div className="relative w-full max-w-lg bg-[#f5e6d7] p-8 rounded-xl shadow-xl border border-[#e0c3a0]">
+
           {/* Close Button */}
           <button
             className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition"
@@ -76,6 +82,7 @@ const CreateEvent = ({ event, getEvents }) => {
           >
             <MdClose size={24} />
           </button>
+
 
           <h2 className="text-2xl font-semibold text-center text-[#5a4a3c] mb-4">
             {openModal.type === "edit" ? "Edit Event" : "Create Event"}
@@ -123,12 +130,29 @@ const CreateEvent = ({ event, getEvents }) => {
               />
             </div>
 
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="w-full px-4 py-2 border border-[#d3b28c] rounded-lg bg-[#fff9f3] text-[#5a4a3c] focus:ring-2 focus:ring-[#d3b28c]"
-            />
+              {/* Dates */}
+            <div className="flex justify-between items-center">
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-1/3 px-4 py-2 border border-[#d3b28c] rounded-lg bg-[#fff9f3] text-[#5a4a3c] focus:ring-2 focus:ring-[#d3b28c]"
+              />
+              <input
+                type="date"
+                value={toDate}
+                onChange={(e) => setToDate(e.target.value)}
+                className={`w-1/3 px-4 py-2 border border-[#d3b28c] rounded-lg bg-[#fff9f3] text-[#5a4a3c] focus:ring-2 focus:ring-[#d3b28c]
+                  transition-opacity duration-500 ${isSingleDay === true ? 'opacity-0' : 'opacity-100'} `}
+                disabled={isSingleDay}
+              />
+              <label htmlFor="" className="text-xs">Sinlge-day event?</label>
+              <input type="checkbox" 
+                value={isSingleDay}
+                onChange={(e) => setIsSingleDay(prev => !prev)}
+                className="cursor-pointer"
+                checked={isSingleDay}/>
+            </div>
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
 

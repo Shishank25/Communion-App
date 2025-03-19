@@ -6,6 +6,7 @@ const eventSchema = new Schema ({
     description: { type: String },
     category: { type: String },
     date: { type: Date, required: true },
+    toDate: { type: Date },
     location: { type: String },
     userId: { type: String, required: true },
     popularity: { type: Number, default: 0 },

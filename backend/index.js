@@ -100,7 +100,7 @@ app.get('/get-user', authenticateToken, async ( req, res ) => {
 
 // Create Event
 app.post('/create-event', authenticateToken, async ( req, res ) => {
-    const { title, description, date, category, location } = req.body;
+    const { title, description, date, toDate, category, location } = req.body;
     const { user } = req.user;
 
     if ( !title || !description || !date || !category || !location ) {
@@ -112,7 +112,8 @@ app.post('/create-event', authenticateToken, async ( req, res ) => {
             title, 
             description, 
             category, 
-            date, 
+            date,
+            toDate, 
             location,
             userId: user._id
         });
@@ -132,10 +133,10 @@ app.post('/create-event', authenticateToken, async ( req, res ) => {
 // Update Event
 app.put('/update-event/:eventId', authenticateToken, async ( req, res ) => {
     const eventId = req.params.eventId;
-    const { title, description, date, category, location } = req.body;
+    const { title, description, date, toDate, category, location } = req.body;
     const { user } = req.user;
 
-    if ( !title || !description || !date || !category || !location ) {
+    if ( !title || !description || !date || !toDate || !category || !location ) {
         return res.status(400).json({ error: true, message: "Missing necessary details, please fill" });
     }
     try {
@@ -146,6 +147,7 @@ app.put('/update-event/:eventId', authenticateToken, async ( req, res ) => {
         newEvent.title = title;
         newEvent.description = description;
         newEvent.date = date;
+        newEvent.toDate = toDate;
         newEvent.category = category;
         newEvent.location = location;
     
