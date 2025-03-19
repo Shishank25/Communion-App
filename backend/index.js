@@ -103,7 +103,7 @@ app.post('/create-event', authenticateToken, async ( req, res ) => {
     const { title, description, date, toDate, category, location } = req.body;
     const { user } = req.user;
 
-    if ( !title || !description || !date || !category || !location ) {
+    if ( !title || !description || !date || !toDate || !category || !location ) {
         return res.status(400).json({ error: true, message: "Missing necessary details, please fill" });
     }
 

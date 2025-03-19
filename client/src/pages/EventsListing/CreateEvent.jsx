@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { MdClose } from "react-icons/md";
 import axiosInstance from "../../utils/axiosInstance";
 import { AppContext } from "../../AppContext";
@@ -20,7 +20,6 @@ const CreateEvent = ({ event, getEvents }) => {
     if (!description) return setError("Please describe your event");
     if (!date) return setError("Please set a date and time");
     if (!category) return setError("Select a category for the event");
-    if (isSingleDay) setToDate(date);
 
     try {
       if (openModal.type === "create") {
@@ -63,6 +62,12 @@ const CreateEvent = ({ event, getEvents }) => {
       setError(err.response?.data?.message || "An unexpected error occurred");
     }
   };
+
+  useEffect(() => {
+    if (isSingleDay && date) {
+      setToDate(new Date(date));
+    }
+  }, [date, isSingleDay]);
 
   return (
     <>
