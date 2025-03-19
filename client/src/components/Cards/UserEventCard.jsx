@@ -19,7 +19,7 @@ const UserEventCard = ({ id, title, description, date, category, location, fetch
     <div
       className={`border-5 flex flex-col sm:flex-row justify-between max-h-60 
       max-w-70 sm:max-w-9/10 py-3 px-5 rounded-lg shadow-lg relative
-      ${categoryColors[category].border}`}
+      ${categoryColors[category]?.border}`}
       
     >
         <div className='flex flex-col max-w-1/2'>
