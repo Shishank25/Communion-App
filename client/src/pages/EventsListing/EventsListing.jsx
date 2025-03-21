@@ -143,6 +143,7 @@ const EventsListing = () => {
                         title={item.title}
                         description={item.description}
                         date={item.date}
+                        toDate={item.toDate}
                         category={item.category}
                         location={item.location}
                     />

@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import axiosInstance from "./utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 
@@ -33,8 +34,20 @@ export const AppProvider = ({ children }) => {
     setSignedIn(false);
   }
 
+  const getUserInfo = async () => {
+    try {
+        const response = await axiosInstance.get('/get-user');
+        if ( response.data && response.data.user ) {
+        setUser({ fullName: response.data.user.fullName, email: response.data.user.email });
+        setSignedIn(true);
+        } 
+    } catch (error) {
+        console.log(error)
+    }
+};
+
   return (
-    <AppContext.Provider value={{ user, setUser, signedIn, setSignedIn, isSigning, setIsSigning, categoryColors, openModal, setOpenModal, handleLogout }}>
+    <AppContext.Provider value={{ user, setUser, signedIn, setSignedIn, isSigning, setIsSigning, categoryColors, openModal, setOpenModal, handleLogout, getUserInfo }}>
       {children}
     </AppContext.Provider>
   );

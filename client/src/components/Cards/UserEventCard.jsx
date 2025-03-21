@@ -17,17 +17,17 @@ const UserEventCard = ({ id, title, description, date, category, location, fetch
 
   return (
     <div
-      className={`border-5 flex flex-col sm:flex-row justify-between max-h-60 
-      max-w-70 sm:max-w-9/10 py-3 px-5 rounded-lg shadow-lg relative
+      className={`border-5 flex flex-col sm:flex-row justify-between max-h-60 min-w-70
+      max-w-8/10 sm:max-w-9/10 py-3 px-5 rounded-lg shadow-lg relative
       ${categoryColors[category]?.border}`}
       
     >
-        <div className='flex flex-col max-w-1/2'>
+        <div className='flex flex-col max-w-3/4  min-w-40 overflow-hidden'>
 
           {/* Formatted Date and Location  */}
           <div className='flex justify-between'>
             <p className='text-xs'>{formattedDate}</p>
-            <p className='text-xs'>{location}</p>
+            <p className='text-xs text-right'>{location}</p>
           </div>
 
           {/* Event Title and Description  */}
@@ -39,7 +39,7 @@ const UserEventCard = ({ id, title, description, date, category, location, fetch
 
 
         <button 
-          className='absolute top-8 right-8 transition-all w-20 pb-1 text-xl 
+          className='absolute top-8 right-0 sm:right-8 transition-all w-20 pb-1 text-xl 
           border border-transparent cursor-pointer text-gray-600 hover:text-black 
           hover:text-blue-700 hover:border-black rounded-3xl' 
           onClick={()=>setOpenModal({ isShown: true, type: 'edit', data: event})}

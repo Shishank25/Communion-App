@@ -18,8 +18,8 @@ const eventSchema = new Schema ({
 });
 
 eventSchema.pre("save", function (next) {
-    if (!this.expiresAt && this.date) {
-        this.expiresAt = new Date(this.date.getTime() + 24 * 60 * 60 * 1000);
+    if (!this.expiresAt && this.toDate) {
+        this.expiresAt = new Date(this.toDate.getTime() + 24 * 60 * 60 * 1000);
     }
     next();
 });

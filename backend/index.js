@@ -260,6 +260,54 @@ app.get('/search-events', async ( req, res ) => {
     } 
 });
 
+// Update User Name
+app.put('/update-name', authenticateToken, async (req, res) => {
+    const { user } = req.user;
+    const { newName } = req.body;
+
+    try {
+        if (!newName) return res.status(400).json({ error: true, message: 'Please enter a name'});
+
+        const isUser = await User.findOne({ _id: user._id });
+
+        if (!isUser) return res.status(404).json({ error: true, message: 'User not found' });
+
+        isUser.fullName = newName;
+
+        await isUser.save()
+        return res.json({
+            error: false,
+            message: "Username Updated!",
+        });
+    } catch (error) {
+        return res.status(500).json({ error: true, message: "Internal Server Error"});
+    }
+});
+
+// Update User Password
+app.put('/update-password', authenticateToken, async (req, res) => {
+    const { user } = req.user;
+    const { newPassword } = req.body;
+
+    try {
+        if (!newPassword) return res.status(400).json({ error: true, message: 'Please enter a Password'});
+
+        const isUser = await User.findOne({ _id: user._id });
+
+        if (!isUser) return res.status(404).json({ error: true, message: 'User not found' });
+
+        isUser.password = newPassword;
+
+        await isUser.save()
+        return res.json({
+            error: false,
+            message: "Password Updated!",
+        });
+    } catch (error) {
+        return res.status(500).json({ error: true, message: "Internal Server Error"});
+    }
+});
+
 app.listen(8000);
 
 module.exports = app;

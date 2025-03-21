@@ -8,7 +8,7 @@ import { IoMdPower } from "react-icons/io";
 
 const Navbar = () => {
     
-    const { user, setUser, signedIn, setSignedIn, setIsSigning, isSigning, handleLogout } = useContext(AppContext);
+    const { getUserInfo, user, signedIn, setSignedIn, setIsSigning, isSigning, handleLogout } = useContext(AppContext);
     const [ navbarShow, setNavbarShow ] = useState(true);
     const navigate = useNavigate();
 
@@ -16,18 +16,6 @@ const Navbar = () => {
     const moveNavbar = () => { 
         setNavbarShow((prev) => !prev ) 
     }
-
-    const getUserInfo = async () => {
-        try {
-            const response = await axiosInstance.get('/get-user');
-            if ( response.data && response.data.user ) {
-            setUser({ fullName: response.data.user.fullName, email: response.data.user.email });
-            setSignedIn(true);
-            } 
-        } catch (error) {
-            console.log(error)
-        }
-    };
 
     useEffect(()=>{
         getUserInfo();
@@ -96,7 +84,7 @@ const Navbar = () => {
                     <button 
                         className='hidden sm:block font-medium text-lg transition-all ease-in 
                         cursor-pointer hover:text-orange-500 hover:bg-white p-1 rounded-full' 
-                        onClick={handleLogout}
+                        onClick={()=> {handleLogout(); navigate('/')}}
                     >
                         <IoMdPower />
                     </button>
